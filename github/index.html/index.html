@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onjira | Full Stack Developer Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0b0e14;
+            --sidebar-bg: rgba(21, 26, 35, 0.8);
+            --card-bg: rgba(22, 27, 34, 0.6);
+            --neon-green: #39d353;
+            --neon-glow: rgba(57, 211, 83, 0.3);
+            --text-main: #f0f6fc;
+            --text-dim: #8b949e;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Kanit', sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle at top right, #161b22, #0b0e14);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 30px;
+        }
+
+        /* --- Glassmorphism Helpers --- */
+        .glass {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* --- Sidebar --- */
+        .sidebar {
+            height: fit-content;
+            padding: 30px;
+            text-align: center;
+            position: sticky;
+            top: 40px;
+        }
+
+        .profile-wrapper {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 20px;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--neon-green);
+            box-shadow: 0 0 20px var(--neon-glow);
+        }
+
+        .status-dot {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            width: 15px;
+            height: 15px;
+            background: var(--neon-green);
+            border-radius: 50%;
+            border: 3px solid #151a23;
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .sidebar h1 { font-size: 1.8rem; margin-bottom: 5px; }
+        .sidebar .role { color: var(--neon-green); font-weight: 500; font-size: 0.95rem; margin-bottom: 15px; display: block; }
+        .sidebar .bio { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 25px; }
+
+        .contact-list {
+            list-style: none;
+            text-align: left;
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 0.85rem;
+            color: var(--text-main);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .contact-item i { width: 20px; color: var(--text-dim); }
+        .contact-item:hover { color: var(--neon-green); }
+
+        /* --- Main Content --- */
+        .main-content { display: flex; flex-direction: column; gap: 30px; }
+
+        .readme-section { padding: 40px; }
+        .readme-header { font-size: 2rem; margin-bottom: 15px; }
+        
+        .typing-box {
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 10px;
+            font-family: 'monospace';
+            border-left: 4px solid var(--neon-green);
+            margin-bottom: 25px;
+        }
+
+        /* Project Cards Grid */
+        .grid-title { font-size: 1.3rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .project-card {
+            padding: 25px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-green);
+            box-shadow: 0 10px 25px rgba(57, 211, 83, 0.1);
+        }
+
+        .project-card h3 { color: var(--neon-green); margin-bottom: 10px; }
+        .project-card p { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 20px; }
+        
+        .tag-group { display: flex; gap: 8px; flex-wrap: wrap; }
+        .tag {
+            background: rgba(255,255,255,0.05);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            border: 1px solid var(--border);
+        }
+
+        /* Contribution Graph */
+        .graph-wrapper { padding: 25px; overflow-x: auto; }
+        .graph-grid {
+            display: grid;
+            grid-template-columns: repeat(24, 1fr);
+            gap: 5px;
+            min-width: 500px;
+        }
+
+        .cell {
+            aspect-ratio: 1/1;
+            background: #161b22;
+            border-radius: 3px;
+            transition: 0.2s;
+        }
+
+        .cell:hover { outline: 2px solid #fff; }
+        .lvl-1 { background: #0e4429; }
+        .lvl-2 { background: #006d32; }
+        .lvl-3 { background: #26a641; }
+        .lvl-4 { background: #39d353; }
+
+        /* Mobile Adjustments */
+        @media (max-width: 900px) {
+            .container { grid-template-columns: 1fr; padding: 20px; }
+            .sidebar { position: static; width: 100%; }
+            .project-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Anim */
+        .cursor { animation: blink 1s infinite; margin-left: 5px; border-left: 8px solid var(--neon-green); }
+        @keyframes blink { 50% { opacity: 0; } }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <aside class="sidebar glass">
+            <div class="profile-wrapper">
+                <img src="ice.jpg" alt="อรจิรา" class="profile-img">
+                <div class="status-dot"></div>
+            </div>
+            <h1>อรจิรา ฮาบละคร</h1>
+            <span class="role">Full Stack Developer</span>
+            <p class="bio">"เป็นคนชอบเล่นเกม นอนได้ทุกที่ทุกเวลา และเขียนโค้ดเพื่อเปลี่ยนโลก (หรือเปลี่ยนบั๊กเป็นฟีเจอร์)"</p>
+            
+            <div class="contact-list">
+                <a href="#" class="contact-item"><i class="fab fa-github"></i> github.com/onjira</a>
+                <a href="#" class="contact-item"><i class="fas fa-envelope"></i> onjira@email.com</a>
+                <a href="#" class="contact-item"><i class="fab fa-facebook"></i> Onjira Hablakorn</a>
+                <a href="#" class="contact-item"><i class="fab fa-instagram"></i> @onjira_ig</a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <section class="readme-section glass">
+                <h2 class="readme-header">สวัสดี! ผม อรจิรา 👋</h2>
+                <div class="typing-box">
+                    <span id="typewriter"></span><span class="cursor"></span>
+                </div>
+                <p style="color: var(--text-dim); margin-bottom: 15px;">🚀 สิ่งที่ผมกำลังโฟกัส:</p>
+                <div class="tag-group">
+                    <span class="tag">🎮 Game Development</span>
+                    <span class="tag">⚡ React & Next.js</span>
+                    <span class="tag">🎨 UI/UX Design</span>
+                    <span class="tag">🐍 Python Automation</span>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="grid-title"><i class="fas fa-thumbtack"></i> Pinned Projects</h2>
+                <div class="project-grid">
+                    <div class="project-card glass">
+                        <h3>💤 Sleepy Tracker</h3>
+                        <p>แอปพลิเคชันคำนวณเวลานอนที่เหมาะสมสำหรับสายเกมเมอร์ที่นอนไม่เป็นเวลา</p>
+                        <div class="tag-group">
+                            <span class="tag" style="color:#f1e05a">JavaScript</span>
+                            <span class="tag">CSS3</span>
+                        </div>
+                    </div>
+                    <div class="project-card glass">
+                        <h3>🛡️ Game Vault</h3>
+                        <p>ระบบจัดการ Inventory ในเกมผ่าน Web Dashboard ที่มีความสวยงามและลื่นไหล</p>
+                        <div class="tag-group">
+                            <span class="tag" style="color:#3178c6">TypeScript</span>
+                            <span class="tag" style="color:#e34c26">HTML5</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="grid-title"><i class="far fa-calendar-alt"></i> 1,248 contributions in the last year</h2>
+                <div class="graph-wrapper glass">
+                    <div class="graph-grid" id="contributions">
+                        </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Typing Effect
+        const text = "ผมชอบเขียนโค้ดและเรียนรู้เทคโนโลยีใหม่ๆ... โดยเฉพาะอะไรที่ทำให้อาชีพ 'การนอน' ของผมสะดวกสบายขึ้น!";
+        let i = 0;
+        function type() {
+            if (i < text.length) {
+                document.getElementById("typewriter").innerHTML += text.charAt(i);
+                i++;
+                setTimeout(type, 60);
+            }
+        }
+
+        // Contribution Graph Mockup
+        function initGraph() {
+            const grid = document.getElementById('contributions');
+            for (let i = 0; i < 168; i++) { // 24 columns * 7 rows
+                const cell = document.createElement('div');
+                cell.className = 'cell';
+                
+                // Random intensity
+                const rand = Math.random();
+                if (rand > 0.9) cell.classList.add('lvl-4');
+                else if (rand > 0.7) cell.classList.add('lvl-3');
+                else if (rand > 0.5) cell.classList.add('lvl-2');
+                else if (rand > 0.3) cell.classList.add('lvl-1');
+                
+                grid.appendChild(cell);
+            }
+        }
+
+        window.onload = () => {
+            type();
+            initGraph();
+        };
+    </script>
+</body>
+</html>
