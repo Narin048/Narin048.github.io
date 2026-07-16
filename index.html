@@ -19,11 +19,7 @@
             --border: rgba(255, 255, 255, 0.1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Inter', 'Kanit', sans-serif;
@@ -43,7 +39,6 @@
             gap: 30px;
         }
 
-        /* --- Glassmorphism Helpers --- */
         .glass {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
@@ -53,7 +48,6 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        /* --- Sidebar --- */
         .sidebar {
             height: fit-content;
             padding: 30px;
@@ -62,12 +56,7 @@
             top: 40px;
         }
 
-        .profile-wrapper {
-            position: relative;
-            width: 180px;
-            height: 180px;
-            margin: 0 auto 20px;
-        }
+        .profile-wrapper { position: relative; width: 180px; height: 180px; margin: 0 auto 20px; }
 
         .profile-img {
             width: 100%;
@@ -94,12 +83,7 @@
         .sidebar .role { color: var(--neon-green); font-weight: 500; font-size: 0.95rem; margin-bottom: 15px; display: block; }
         .sidebar .bio { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 25px; }
 
-        .contact-list {
-            list-style: none;
-            text-align: left;
-            border-top: 1px solid var(--border);
-            padding-top: 20px;
-        }
+        .contact-list { list-style: none; text-align: left; border-top: 1px solid var(--border); padding-top: 20px; }
 
         .contact-item {
             display: flex;
@@ -115,7 +99,6 @@
         .contact-item i { width: 20px; color: var(--text-dim); }
         .contact-item:hover { color: var(--neon-green); }
 
-        /* --- Main Content --- */
         .main-content { display: flex; flex-direction: column; gap: 30px; }
 
         .readme-section { padding: 40px; }
@@ -128,22 +111,13 @@
             font-family: 'monospace';
             border-left: 4px solid var(--neon-green);
             margin-bottom: 25px;
-            min-height: 80px; /* เพิ่มความสูงขั้นต่ำเพื่อป้องกันการกระตุกขณะพิมพ์ */
+            min-height: 80px;
         }
 
-        /* Project Cards Grid */
         .grid-title { font-size: 1.3rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
+        .project-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
 
-        .project-card {
-            padding: 25px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
+        .project-card { padding: 25px; transition: all 0.3s ease; cursor: pointer; }
 
         .project-card:hover {
             transform: translateY(-5px);
@@ -155,29 +129,12 @@
         .project-card p { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 20px; }
         
         .tag-group { display: flex; gap: 8px; flex-wrap: wrap; }
-        .tag {
-            background: rgba(255,255,255,0.05);
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.7rem;
-            border: 1px solid var(--border);
-        }
+        .tag { background: rgba(255,255,255,0.05); padding: 4px 10px; border-radius: 12px; font-size: 0.7rem; border: 1px solid var(--border); }
 
-        /* Contribution Graph */
         .graph-wrapper { padding: 25px; overflow-x: auto; }
-        .graph-grid {
-            display: grid;
-            grid-template-columns: repeat(24, 1fr);
-            gap: 5px;
-            min-width: 500px;
-        }
+        .graph-grid { display: grid; grid-template-columns: repeat(24, 1fr); gap: 5px; min-width: 500px; }
 
-        .cell {
-            aspect-ratio: 1/1;
-            background: #161b22;
-            border-radius: 3px;
-            transition: 0.2s;
-        }
+        .cell { aspect-ratio: 1/1; background: #161b22; border-radius: 3px; transition: 0.2s; }
 
         .cell:hover { outline: 2px solid #fff; }
         .lvl-1 { background: #ff0303; }
@@ -185,14 +142,12 @@
         .lvl-3 { background: #005df4; }
         .lvl-4 { background: #c60ab6; }
 
-        /* Mobile Adjustments */
         @media (max-width: 900px) {
             .container { grid-template-columns: 1fr; padding: 20px; }
             .sidebar { position: static; width: 100%; }
             .project-grid { grid-template-columns: 1fr; }
         }
 
-        /* Anim */
         .cursor { animation: blink 1s infinite; margin-left: 5px; border-left: 8px solid var(--neon-green); }
         @keyframes blink { 50% { opacity: 0; } }
     </style>
@@ -202,7 +157,6 @@
     <div class="container">
         <aside class="sidebar glass">
             <div class="profile-wrapper">
-                <!-- ใส่ภาพเป็นรูป Avatar พื้นฐานไว้ให้ก่อน หากคุณอัปโหลดไฟล์ "ice.jpg" ลงเซิร์ฟเวอร์ภาพจริงจะแสดงทันทีครับ -->
                 <img src="n.jpg" onerror="this.src='https://ui-avatars.com/api/?name=Narint&background=39d353&color=fff&size=180'" alt="นรินทร์" class="profile-img">
                 <div class="status-dot"></div>
             </div>
@@ -212,7 +166,7 @@
             
             <div class="contact-list">
                 <a href="#" class="contact-item"><i class="fab fa-github"></i> github.com/narint</a>
-                <a href="#" class="contact-item"><i class="fas fa-envelope"></i>narinthongsri2@email.com</a>
+                <a href="#" class="contact-item"><i class="fas fa-envelope"></i> narinthongsri2@email.com</a>
                 <a href="#" class="contact-item"><i class="fab fa-facebook"></i> ไม่บอก</a>
                 <a href="#" class="contact-item"><i class="fab fa-instagram"></i> ไม่ให้ค้าบ</a>
                 <a href="#" class="contact-item"><i class="fas fa-phone"></i> 081 xxx 72xx</a>
@@ -237,9 +191,10 @@
                     <div class="project-card glass">
                         <h3>แอปที่อยากทำ</h3>
                         <p>แอปหาเพื่อนตีแบด</p>
+                        <div class="tag-group">
+                            <span class="tag">0-0</span>
                         </div>
                     </div>
-
                 </div>
             </section>
 
@@ -254,7 +209,6 @@
     </div>
 
     <script>
-        // Typing Effect
         const text = "ผม ผมนะ ผม!! เป็นใคร แต่ผมชื่อเอิร์ธนะครับ";
         let i = 0;
         function type() {
@@ -265,14 +219,12 @@
             }
         }
 
-        // Contribution Graph Mockup
         function initGraph() {
             const grid = document.getElementById('contributions');
-            for (let i = 0; i < 168; i++) { // 24 columns * 7 rows
+            for (let i = 0; i < 168; i++) {
                 const cell = document.createElement('div');
                 cell.className = 'cell';
                 
-                // Random intensity
                 const rand = Math.random();
                 if (rand > 0.9) cell.classList.add('lvl-4');
                 else if (rand > 0.7) cell.classList.add('lvl-3');
