@@ -1,0 +1,41 @@
+select count(*) จำนวนชนิด, Max (unitPrice)ราคาสูงสุด,Min(unitPrice)ราคาต่ำสุด,Avg(unitPrice)ราคาเฉลี่ย, Sum(unitsinstock) จำนวนทั้งหมด
+from Products
+
+--ต้องการทราบว่าราคาสินค้าแต่ละหมวดหมู่(categoryID) มีสินค้ากี่ชนิด แต่ละชนิดมีค่าเฉลี่ย มีค่าสูงสุด และต่ำสุด
+select categoryID, count(*) จำนวนชนิด,Avg(unitprice) ราคาสูงสุด, Min(UnitPrice) ราคาต่ำสุด from Products group by CategoryID
+
+--ต้องการทราบข้อมูลว่าในแต่ละประเทศ (country) มีลูกค้าอยู่กี่ราย
+select country,city, count(*) จำนวนลูกค้า
+from Customers
+group by Country,city
+--order by count(*) desc
+
+--ต้องการทราบข้อมูลว่าในแต่ละประเทศ (country) แสดงผลเฉพราะที่มีจำยนวนลูกค้า 10 รายขี้นไป
+select country, count(*) จำนวนลูกค้า
+from Customers
+group by Country
+having count(*) >=10
+
+--ต้องการทราบว่าสินค้าทีมีข้อมูลที่มีค่าสูง (ราคาตั้งแต่ 75 ขึ้นไป) แต่ละหมวดหมูที่มีจำนวนกี่ชนิด มีค่าเฉลี่ยใด
+--ให้แสดงเฉพาะสินค้าที่มีราคาสูงว่าเฉลี่ย มากว่า 100
+select categoryID, count(*) จำนวนชนิด, Avg(unitprice) ราคาเฉลี่ย
+from products
+where UnitPrice >= 75
+group by CategoryID
+having avg(UnitPrice) >200
+
+--จากตาราง [order details] ให้รวบรวมว่าในแต่ละการสั่งชื่อ มียอดเงินรวมเท่าใด
+select  orderID, unitprice,quantity,discount,
+		UnitPrice * Quantity as ราคาเต็ม,
+		UnitPrice * Quantity * Discount as ส่วนลด,
+		(unitprice * quantity) - (UnitPrice * Quantity * discount) as ราคาสว่นลด,
+		(unitprice * quantity * (1-discount)) as หักส่วนลดสูตรย่อ
+from [Order Details]
+
+select orderID, count(*) จำนวนรายการ,
+		sum((UnitPrice * Quantity * (1- Discount))) as ยอดเงินรวม
+from [Order Details]
+group by orderID
+having sum((UnitPrice * Quantity * (1- Discount))) > 2000
+order by 3 desc
+--order by sum((UnitPrice * Quantity * (1- Discount))) desc
